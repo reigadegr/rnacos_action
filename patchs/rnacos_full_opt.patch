@@ -1,0 +1,19 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 36a6cd7..49140c0 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -143,6 +143,11 @@ features = [
+ [build-dependencies]
+ 
+ [profile.release]
+-#opt-level = 3
+-#strip = true
+-#lto = true
++overflow-checks = false
++codegen-units = 1
++lto = "fat"
++opt-level = 3
++strip = true
++debug = 0
++debug-assertions = false
++incremental = false

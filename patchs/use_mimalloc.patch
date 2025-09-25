@@ -1,0 +1,42 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 36a6cd7..8ec178c 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -47,7 +47,7 @@ debug=[]
+ uninlined_format_args = "allow"
+ 
+ [dependencies]
+-mimalloc = { version = "0.1", features = ["secure"] }
++mimalloc = { version = "0.1.48", features = ["no_thp", "override", "v3", "secure"] }
+ serde = { version = "1", features = ["derive", "rc"] }
+ serde_json = "1"
+ serde_urlencoded = "0.7"
+diff --git a/src/main.rs b/src/main.rs
+index 311080f..bdb1f2a 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -31,12 +31,11 @@ use std::sync::Arc;
+ use std::time::Duration;
+ use tonic::transport::Server;
+ 
++use crate::cli::{Cli, Commands};
+ use actix_web::{middleware, HttpServer};
+ use clap::Parser;
+ use env_logger::TimestampPrecision;
+ use env_logger_timezone_fmt::{TimeZoneFormat, TimeZoneFormatEnv};
+-//use mimalloc::MiMalloc;
+-use crate::cli::{Cli, Commands};
+ use rnacos::common::appdata::AppShareData;
+ use rnacos::openapi::middle::auth_middle::ApiCheckAuth;
+ use rnacos::raft::NacosRaft;
+@@ -45,8 +44,8 @@ use rnacos::transfer::mysql_to_data::mysql_to_data;
+ use rnacos::transfer::openapi_to_data::openapi_to_data;
+ use rnacos::transfer::sqlite_to_data::sqlite_to_data;
+ use rnacos::web_config::{app_config, console_config};
+-//#[global_allocator]
+-//static GLOBAL: MiMalloc = MiMalloc;
++#[global_allocator]
++static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+ 
+ #[actix_web::main]
+ async fn main() -> Result<(), Box<dyn Error>> {
