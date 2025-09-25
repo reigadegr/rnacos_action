@@ -27,6 +27,11 @@ on:
         description: "是否使用O2编译？(默认O3)"
         required: true
         default: false
+      USE_MIMALLOC:
+        type: boolean
+        description: "是否启用mimalloc替代tikv-jemallocator？"
+        required: true
+        default: true
 
 env:
   CARGO_TERM_COLOR: always
@@ -51,6 +56,7 @@ jobs:
           echo "-----------------------"
           echo "Selected TOOLCHAINS: ${{ github.event.inputs.TOOLCHAINS }}"
           echo "Selected TARGET: ${{ github.event.inputs.TARGET }}"
+          echo "Selected USE_MIMALLOC: ${{ github.event.inputs.USE_MIMALLOC }}"
           echo "-----------------------"
 
   # Build RustFS binaries
@@ -114,6 +120,24 @@ jobs:
           if [ "${{ github.event.inputs.USE_O2 }}" = "true" ]; then
               sed -i 's/+opt-level = 3/+opt-level = 2/g' ./self_code/patchs/*
           fi
+
+          if [ "${{ github.event.inputs.USE_MIMALLOC }}" = "true" ]; then
+            malloc="use_mimalloc.patch"
+          else
+            malloc="jemalloc_musl_fix.patch"
+          fi
+
+          is_windows="${{ contains(github.event.inputs.TARGET, 'windows') && 'true' || 'false' }}"
+          if [ "$is_windows" = "true" ]; then
+              malloc="use_mimalloc.patch"
+          fi
+
+          if [ "$malloc" = "use_mimalloc.patch" ]; then
+              rm -f "./self_code/patchs/jemalloc_musl_fix.patch"
+          else
+              rm -f "./self_code/patchs/use_mimalloc.patch"
+          fi
+
           git add  . && git commit -m "auto commit" >/dev/null 2>&1 || echo "无需提交"
           for i in `realpath ./self_code/patchs/*.patch`; do
              patch -p1 -F 3 < $i && git add  . && git commit -m "$i成功应用" || echo "$i应用失败" >>output/failure.log

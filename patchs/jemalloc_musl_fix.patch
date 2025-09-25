@@ -1,0 +1,28 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 36a6cd7..fd282f8 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -47,7 +47,7 @@ debug=[]
+ uninlined_format_args = "allow"
+ 
+ [dependencies]
+-mimalloc = { version = "0.1", features = ["secure"] }
++tikv-jemallocator = { git = "https://github.com/reigadegr/jemallocator" }
+ serde = { version = "1", features = ["derive", "rc"] }
+ serde_json = "1"
+ serde_urlencoded = "0.7"
+diff --git a/src/main.rs b/src/main.rs
+index 311080f..08dc16f 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -45,8 +45,8 @@ use rnacos::transfer::mysql_to_data::mysql_to_data;
+ use rnacos::transfer::openapi_to_data::openapi_to_data;
+ use rnacos::transfer::sqlite_to_data::sqlite_to_data;
+ use rnacos::web_config::{app_config, console_config};
+-//#[global_allocator]
+-//static GLOBAL: MiMalloc = MiMalloc;
++#[global_allocator]
++static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+ 
+ #[actix_web::main]
+ async fn main() -> Result<(), Box<dyn Error>> {
