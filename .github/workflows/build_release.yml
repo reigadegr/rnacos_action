@@ -98,9 +98,9 @@ jobs:
       - name: Clone utils sources
         shell: bash
         run: |
-          git clone --depth 1 https://github.com/nacos-group/r-nacos
-
-          cd "$(basename $i)"
+          url="https://github.com/nacos-group/r-nacos"
+          git clone --depth 1 "$url"
+          cd "$(basename $url)"
           rm -rf .git rust-toolchain.toml || true
           cargo add mimalloc --features no_thp,override,v3
 
