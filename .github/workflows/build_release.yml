@@ -102,7 +102,6 @@ jobs:
           git clone --depth 1 "$url"
           cd "$(basename $url)"
           rm -rf .git rust-toolchain.toml || true
-          cargo add mimalloc --features no_thp,override,v3
 
       - name: Optimize upstream mallocator and optmize level
         shell: bash
