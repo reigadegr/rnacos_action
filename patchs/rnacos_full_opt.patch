@@ -1,7 +1,7 @@
-diff --git a/Cargo.toml b/Cargo.toml
+diff --git a/r-nacos/Cargo.toml b/r-nacos/Cargo.toml
 index 36a6cd7..49140c0 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
+--- a/r-nacos/Cargo.toml
++++ b/r-nacos/Cargo.toml
 @@ -143,6 +143,11 @@ features = [
  [build-dependencies]
  

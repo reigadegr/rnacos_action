@@ -1,7 +1,7 @@
-diff --git a/Cargo.toml b/Cargo.toml
+diff --git a/r-nacos/Cargo.toml b/r-nacos/Cargo.toml
 index 36a6cd7..8ec178c 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
+--- a/r-nacos/Cargo.toml
++++ b/r-nacos/Cargo.toml
 @@ -47,7 +47,7 @@ debug=[]
  uninlined_format_args = "allow"
  
@@ -11,10 +11,10 @@ index 36a6cd7..8ec178c 100644
  serde = { version = "1", features = ["derive", "rc"] }
  serde_json = "1"
  serde_urlencoded = "0.7"
-diff --git a/src/main.rs b/src/main.rs
+diff --git a/r-nacos/src/main.rs b/r-nacos/src/main.rs
 index 311080f..bdb1f2a 100644
---- a/src/main.rs
-+++ b/src/main.rs
+--- a/r-nacos/src/main.rs
++++ b/r-nacos/src/main.rs
 @@ -31,12 +31,11 @@ use std::sync::Arc;
  use std::time::Duration;
  use tonic::transport::Server;
