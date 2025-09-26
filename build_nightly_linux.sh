@@ -11,9 +11,11 @@ export RUSTFLAGS="
     -Z mutable-noalias=yes \
     -Z function-sections=yes \
     -Z dep-info-omit-d-target \
+    -Z default-visibility=hidden \
     -Z flatten-format-args=yes \
     -Z saturating-float-casts=yes \
     -Z mir-enable-passes=+Inline \
+    -Z no-unique-section-names=yes \
     -Z precise-enum-drop-elaboration=yes \
     -C relro-level=full \
     -C code-model=small \
