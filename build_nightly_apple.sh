@@ -12,7 +12,6 @@ export RUSTFLAGS="
     -Z function-sections=yes
     -Z dep-info-omit-d-target
     -Z flatten-format-args=yes
-    -Z default-visibility=hidden
     -Z saturating-float-casts=yes
     -Z mir-enable-passes=+Inline
     -Z precise-enum-drop-elaboration=yes
