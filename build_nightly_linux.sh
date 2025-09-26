@@ -22,6 +22,7 @@ export RUSTFLAGS="
     -C relocation-model=static
     -C default-linker-libraries
     -C symbol-mangling-version=v0
+    -C link-args=-Wl,--gc-sections
 " 
 
 cargo update
