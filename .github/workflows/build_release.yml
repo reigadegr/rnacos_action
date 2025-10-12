@@ -94,8 +94,8 @@ jobs:
       - name: Configure Git
         shell: bash
         run: |
-          git config --global user.name "Numbersf"
-          git config --global user.email "263623064@qq.com"
+          git config --global user.name "TEST01"
+          git config --global user.email "1145141919810@qq.com"
 
       - name: Setup TimeZone
         if: runner.os == 'Linux'
